@@ -234,7 +234,7 @@
             </div>
 
             <div class="flex items-center gap-2 sm:gap-3">
-                <button onclick="syncWithGoogleCloud(true)" title="ទាញទិន្នន័យ និងធ្វើសមកាលកម្មជាមួយ Google Sheet" class="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-full text-xs font-medium transition">
+                <button onclick="syncWithGoogleCloud(true)" title="ទាញទិន្នន័យ និងធ្វើសមកាលកម្មឡើងវិញ" class="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-full text-xs font-medium transition">
                     <i id="syncIcon" data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                     <span id="syncLabel" class="hidden sm:inline">Google Sync</span>
                 </button>
@@ -290,9 +290,9 @@
                         </span>
                         <span id="sidebarSyncBadge" class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-semibold">Cloud Sync</span>
                     </div>
-                    <p class="text-slate-500 leading-relaxed">រូបថតសិស្ស ឯកសារ PDF និងរូបភាព ត្រូវបានរក្សាទុកក្នុង Google Drive & Sheet ដោយស្វ័យប្រវត្តិ។</p>
+                    <p class="text-slate-500 leading-relaxed">រូបថតសិស្ស ឯកសារ PDF និងរូបភាព ត្រូវបានរក្សាទុកដោយស្វ័យប្រវត្តិ។</p>
                     <a id="sidebarDriveFolderBtn" href="#" target="_blank" class="hidden w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold rounded-lg transition block">
-                        បើកថតឯកសារ Google Drive
+                        បើកឯកសារ
                     </a>
                 </div>
             </aside>
@@ -680,16 +680,16 @@
                                     <span>ការតភ្ជាប់ទៅកាន់ប្រព័ន្ធផ្ទុកទិន្នន័យរួម (Central Cloud Database)</span>
                                 </h2>
                                 <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                                    គណនីសិស្ស និងឯកសារទាំងអស់ត្រូវបានគ្រប់គ្រងដោយ Link Apps Script តែមួយដោយស្វ័យប្រវត្តិ។
+                                    គណនីសិស្ស និងឯកសារទាំងអស់ត្រូវបានគ្រប់គ្រងដោយប្រព័ន្ធស្វ័យប្រវត្តិ។
                                 </p>
                             </div>
                             <span id="backendStatusPill" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 self-start">
-                                បានតភ្ជាប់ Google Sheet & Drive រួចរាល់
+                                បានតភ្ជាប់ប្រព័ន្ធរួចរាល់
                             </span>
                         </div>
 
                         <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-                            <label class="block text-sm font-bold text-slate-700">តំណភ្ជាប់ Web App URL មេរបស់សាលារៀន៖</label>
+                            <label class="block text-sm font-bold text-slate-700">តំណភ្ជាប់ប្រព័ន្ធមេរបស់សាលារៀន៖</label>
                             <div class="flex flex-col sm:flex-row gap-3">
                                 <input type="url" id="gasWebAppUrlInput" readonly
                                        class="flex-1 px-4 py-2.5 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-600 focus:outline-none">
@@ -768,7 +768,7 @@
                     <label for="itemFileInput" class="border-2 border-dashed border-slate-300 hover:border-[#1B4D3E] bg-slate-50 hover:bg-emerald-50/40 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer transition text-center">
                         <i data-lucide="upload-cloud" class="w-8 h-8 text-[#1B4D3E] mb-1.5"></i>
                         <span id="selectedFileNameDisplay" class="text-xs sm:text-sm font-medium text-slate-700">ចុចទីនេះដើម្បីជ្រើសរើសឯកសារ PDF ឬ រូបភាព</span>
-                        <span class="text-[11px] text-slate-400 mt-0.5">គាំទ្រ PDF, PNG, JPG (រក្សាទុកក្នុង Google Drive របស់សិស្ស)</span>
+                        <span class="text-[11px] text-slate-400 mt-0.5">គាំទ្រ PDF, PNG, JPG (រក្សាទុកឯកសាររបស់សិស្ស)</span>
                     </label>
                     <input type="file" id="itemFileInput" accept=".pdf,image/*" class="hidden" onchange="handleItemFileSelect(event)">
                 </div>
@@ -1124,7 +1124,7 @@
             document.getElementById('authForm').dispatchEvent(new Event('submit'));
         }
 
-        // ផ្ទៀងផ្ទាត់ និងចុះឈ្មោះសិស្សទាំងអស់តាមរយៈ Google Apps Script តែមួយ
+        // ផ្ទៀងផ្ទាត់ និងចុះឈ្មោះសិស្សទាំងអស់តាមរយៈប្រព័ន្ធតែមួយ
         async function handleAuthSubmit(e) {
             e.preventDefault();
             const nameInput = document.getElementById('authStudentName').value.trim();
@@ -1641,7 +1641,7 @@
                         body: JSON.stringify({ action: 'deleteItem', itemId })
                     });
                 } catch (e) {}
-                showToast('បានលុបស្នាដៃចេញពីតារាង និង Google Sheet រួចរាល់!', 'info');
+                showToast('បានលុបស្នាដៃចេញពីតារាងរួចរាល់!', 'info');
             };
         }
 
@@ -1667,7 +1667,7 @@
                 body.innerHTML = `
                     <div class="text-center text-white p-8 space-y-4">
                         <i data-lucide="cloud-check" class="w-16 h-16 text-emerald-400 mx-auto"></i>
-                        <h4 class="text-lg font-bold">ឯកសារត្រូវបានរក្សាទុកក្នុង Google Drive</h4>
+                        <h4 class="text-lg font-bold">ឯកសារត្រូវបានរក្សាទុកក</h4>
                         <p class="text-sm text-slate-300">ឈ្មោះឯកសារ៖ ${escapeHtml(item.fileName)}</p>
                         <a href="${item.fileUrl}" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm">
                             <i data-lucide="external-link" class="w-4 h-4"></i>
