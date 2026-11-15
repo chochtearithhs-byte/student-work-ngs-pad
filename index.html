@@ -100,11 +100,11 @@
         <div class="orbit-ring w-[960px] h-[640px] rotate-[-12deg]"></div>
 
         <div class="fixed top-4 right-4 z-30 flex items-center gap-2">
-            <button onclick="openCloudConfigModal()" class="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-3 py-1.5 rounded-xl text-xs sm:text-sm backdrop-blur-md transition">
+            <div class="flex items-center gap-1.5 bg-white/10 text-white border border-white/20 px-3 py-1.5 rounded-xl text-xs sm:text-sm backdrop-blur-md">
                 <i data-lucide="cloud" class="w-4 h-4 text-emerald-400"></i>
-                <span data-i18n="cloud_setup_btn">ភ្ជាប់ Google Sheet/Drive</span>
-                <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-amber-400"></span>
-            </button>
+                <span>Cloud Database</span>
+                <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </div>
 
             <div class="bg-[#181a20]/90 border border-white/15 rounded-xl p-1 flex items-center text-xs sm:text-sm">
                 <button onclick="setLanguage('km')" id="langBtnKmAuth" class="px-3 py-1 rounded-lg bg-[#2c303a] text-white font-medium transition">ខ្មែរ</button>
@@ -278,7 +278,7 @@
 
                     <button onclick="switchMainSection('backend')" id="sideBtnBackend" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 transition">
                         <i data-lucide="database" class="w-4 h-4"></i>
-                        <span data-i18n="menu_backend">ភ្ជាប់ Google Sheet & Drive</span>
+                        <span data-i18n="menu_backend">ស្ថានភាព Cloud Database</span>
                     </button>
                 </div>
 
@@ -288,12 +288,12 @@
                             <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-[#1B4D3E]"></i>
                             <span>ស្ថានភាពផ្ទុកទិន្នន័យ</span>
                         </span>
-                        <span id="sidebarSyncBadge" class="px-2 py-0.5 rounded-full text-[10px] bg-amber-100 text-amber-800">Local</span>
+                        <span id="sidebarSyncBadge" class="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-semibold">Cloud Sync</span>
                     </div>
-                    <p class="text-slate-500 leading-relaxed">រូបថតសិស្ស ឯកសារ PDF និងរូបភាព ត្រូវបានរៀបចំតាមឈ្មោះសិស្ស និងសាលារៀន។</p>
-                    <button onclick="switchMainSection('backend')" class="w-full py-1.5 bg-white border border-slate-200 hover:border-[#1B4D3E] text-[#1B4D3E] font-semibold rounded-lg transition">
-                        កំណត់កន្លែងផ្ទុកទិន្នន័យ Cloud
-                    </button>
+                    <p class="text-slate-500 leading-relaxed">រូបថតសិស្ស ឯកសារ PDF និងរូបភាព ត្រូវបានរក្សាទុកក្នុង Google Drive & Sheet ដោយស្វ័យប្រវត្តិ។</p>
+                    <a id="sidebarDriveFolderBtn" href="#" target="_blank" class="hidden w-full py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-semibold rounded-lg transition block">
+                        បើកថតឯកសារ Google Drive
+                    </a>
                 </div>
             </aside>
 
@@ -395,7 +395,7 @@
                         </button>
                     </div>
 
-                    <!-- Pill Navigation Tabs Bar (បន្ថែម Tab ស្នាដៃទាំងអស់) -->
+                    <!-- Pill Navigation Tabs Bar -->
                     <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200/80 overflow-x-auto">
                         <div class="flex items-center gap-1.5 min-w-max">
                             <button onclick="switchPortfolioTab('personal')" id="tabBtn_personal" class="tab-pill tab-pill-active px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2">
@@ -471,7 +471,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-600 mb-1.5">អត្តលេខសិស្ស (Student ID)</label>
-                                        <input type="text" id="infoStudentId" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none">
+                                        <input type="text" id="infoStudentId" readonly class="w-full px-3.5 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed">
                                     </div>
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-600 mb-1.5">ថ្នាក់ទី / កម្រិតសិក្សា</label>
@@ -540,7 +540,7 @@
                                         <i data-lucide="bar-chart-2" class="w-5 h-5 text-[#1B4D3E]"></i>
                                         <span>តារាងកម្រងស្នាដៃ និងគម្រោងសិស្ស</span>
                                     </h3>
-                                    <p class="text-xs text-slate-500 mt-0.5">ឯកសារភ្ជាប់ទាំងអស់ (PDF / រូបភាព) ត្រូវបានរក្សាទុក</p>
+                                    <p class="text-xs text-slate-500 mt-0.5">ឯកសារភ្ជាប់ទាំងអស់ (PDF / រូបភាព) ត្រូវបានរក្សាទុកក្នុង Google Drive របស់សិស្ស</p>
                                 </div>
 
                                 <div class="flex flex-wrap items-center gap-2">
@@ -670,35 +670,32 @@
                     </div>
                 </div>
 
-                <!-- ==================== SECTION C: GOOGLE SHEETS & DRIVE BACKEND SETUP ==================== -->
+                <!-- ==================== SECTION C: GOOGLE SHEETS & DRIVE BACKEND STATUS ==================== -->
                 <div id="sectionBackend" class="hidden space-y-6">
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-5">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                             <div>
                                 <h2 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center gap-2">
                                     <i data-lucide="cloud-cog" class="w-6 h-6 text-[#1B4D3E]"></i>
-                                    <span>ការតភ្ជាប់ទៅកាន់ឯកសារពិតប្រាកដ</span>
+                                    <span>ការតភ្ជាប់ទៅកាន់ប្រព័ន្ធផ្ទុកទិន្នន័យរួម (Central Cloud Database)</span>
                                 </h2>
                                 <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                                    រក្សាទុកតារាងទិន្នន័យសិស្ស និងរូបថតសិស្សក្នុងដោយស្វ័យប្រវត្តិ។
+                                    គណនីសិស្ស និងឯកសារទាំងអស់ត្រូវបានគ្រប់គ្រងដោយ Link Apps Script តែមួយដោយស្វ័យប្រវត្តិ។
                                 </p>
                             </div>
-                            <span id="backendStatusPill" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 self-start">
-                                មិនទាន់ភ្ជាប់ Web App URL (កំពុងប្រើ Local Mode)
+                            <span id="backendStatusPill" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 self-start">
+                                បានតភ្ជាប់ Google Sheet & Drive រួចរាល់
                             </span>
                         </div>
 
                         <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
-                            <label class="block text-sm font-bold text-slate-700">1. បញ្ចូលតំណភ្ជាប់ Web App URL របស់អ្នក៖</label>
+                            <label class="block text-sm font-bold text-slate-700">តំណភ្ជាប់ Web App URL មេរបស់សាលារៀន៖</label>
                             <div class="flex flex-col sm:flex-row gap-3">
-                                <input type="url" id="gasWebAppUrlInput" placeholder="https://script.google.com/macros/s/AKfycbzYCay1NuodeurXEMa2uI1zSBeD4IFduD-AqAv-yIZlHDFoYRtoAarWBHQAvDZbbNBeuA/exec"
-                                       class="flex-1 px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-[#1B4D3E] focus:outline-none">
-                                <button onclick="saveGasUrl()" class="px-5 py-2.5 rounded-xl bg-[#1B4D3E] hover:bg-[#143d30] text-white text-sm font-semibold shadow-sm transition flex items-center justify-center gap-2">
-                                    <i data-lucide="link" class="w-4 h-4"></i>
-                                    <span>រក្សាទុក និងតភ្ជាប់</span>
-                                </button>
-                                <button onclick="testGasConnection()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-sm transition">
-                                    សាកល្បងតភ្ជាប់
+                                <input type="url" id="gasWebAppUrlInput" readonly
+                                       class="flex-1 px-4 py-2.5 bg-slate-100 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-600 focus:outline-none">
+                                <button onclick="testGasConnection()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-sm transition flex items-center justify-center gap-2">
+                                    <i data-lucide="wifi" class="w-4 h-4"></i>
+                                    <span>សាកល្បងតភ្ជាប់</span>
                                 </button>
                             </div>
                         </div>
@@ -771,7 +768,7 @@
                     <label for="itemFileInput" class="border-2 border-dashed border-slate-300 hover:border-[#1B4D3E] bg-slate-50 hover:bg-emerald-50/40 rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer transition text-center">
                         <i data-lucide="upload-cloud" class="w-8 h-8 text-[#1B4D3E] mb-1.5"></i>
                         <span id="selectedFileNameDisplay" class="text-xs sm:text-sm font-medium text-slate-700">ចុចទីនេះដើម្បីជ្រើសរើសឯកសារ PDF ឬ រូបភាព</span>
-                        <span class="text-[11px] text-slate-400 mt-0.5">គាំទ្រ PDF, PNG, JPG (រក្សាទុកក្នុងទិន្នន័យរបស់សិស្ស)</span>
+                        <span class="text-[11px] text-slate-400 mt-0.5">គាំទ្រ PDF, PNG, JPG (រក្សាទុកក្នុង Google Drive របស់សិស្ស)</span>
                     </label>
                     <input type="file" id="itemFileInput" accept=".pdf,image/*" class="hidden" onchange="handleItemFileSelect(event)">
                 </div>
@@ -812,35 +809,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL 3: QUICK CLOUD CONFIG ==================== -->
-    <div id="cloudConfigModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden">
-            <div class="bg-[#0000FF] text-white px-5 py-4 flex items-center justify-between">
-                <h3 class="font-bold text-sm sm:text-base flex items-center gap-2">
-                    <i data-lucide="cloud" class="w-5 h-5"></i>
-                    <span>តភ្ជាប់ Google Sheet & Drive</span>
-                </h3>
-                <button onclick="closeCloudConfigModal()" class="p-1 rounded-lg hover:bg-white/15">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            <div class="p-5 space-y-4">
-                <p class="text-xs text-slate-600 leading-relaxed">
-                    បញ្ចូលតំណភ្ជាប់ <strong>Web App URL</strong> ដើម្បីរក្សាទុកទិន្នន័យសិស្ស រូបថតសិស្ស និងឯកសារ PDF ។
-                </p>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Google Apps Script Web App URL</label>
-                    <input type="url" id="modalGasUrlInput" placeholder="https://script.google.com/macros/s/AKfycbzYCay1NuodeurXEMa2uI1zSBeD4IFduD-AqAv-yIZlHDFoYRtoAarWBHQAvDZbbNBeuA/exec"
-                           class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none">
-                </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button onclick="closeCloudConfigModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-semibold">បិទ</button>
-                    <button onclick="saveGasUrlFromModal()" class="px-4 py-2 rounded-xl bg-[#0000FF] text-white text-xs font-semibold shadow">រក្សាទុកការតភ្ជាប់</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- ==================== MODAL 4: CUSTOM CONFIRM DIALOG ==================== -->
     <div id="confirmModal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4">
@@ -860,9 +828,11 @@
 
     <!-- ==================== APPLICATION LOGIC (JAVASCRIPT) ==================== -->
     <script>
-        const STORAGE_KEY_USERS = 'moeys_portfolio_users_v1';
-        const STORAGE_KEY_SESSION = 'moeys_portfolio_session_v1';
-        const STORAGE_KEY_GAS_URL = 'moeys_portfolio_gas_url_v1';
+        // កំណត់ Link Google Apps Script តែមួយគត់សម្រាប់គ្រប់គ្រងសិស្ស និងឯកសារទាំងអស់
+        const DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbyJt1MJwkKs_GTWlvJlUH8fJumzDTWYcxjlVM29NHW-7aty7i42_T17EqXRK774NRIBjA/exec';
+
+        const STORAGE_KEY_USERS = 'moeys_portfolio_users_v2';
+        const STORAGE_KEY_SESSION = 'moeys_portfolio_session_v2';
 
         let currentLang = 'km';
         let authMode = 'login';
@@ -908,14 +878,13 @@
                 btn_login: 'ចូលប្រើប្រាស់',
                 btn_register: 'ចុះឈ្មោះ និងចូលប្រើប្រព័ន្ធ',
                 demo_or: 'ឬ សាកល្បងគណនីគម្រូភ្លាមៗ',
-                cloud_setup_btn: 'ភ្ជាប់ Google',
                 nav_brand: 'ប្រព័ន្ធកម្រងស្នាដៃសិស្ស',
                 academic_year_label: 'ឆ្នាំសិក្សា:',
                 btn_logout: 'ចាកចេញ',
                 menu_header: 'ម៉ឺនុយគ្រប់គ្រង',
                 menu_portfolio: 'ទំព័រដើម / កម្រងស្នាដៃ',
                 menu_stats: 'ស្ថិតិស្នាដៃសិស្ស',
-                menu_backend: 'ភ្ជាប់ Google',
+                menu_backend: 'ស្ថានភាព Cloud Database',
                 page_title_portfolio: 'ប្រវត្តិរូប និងកម្រងស្នាដៃសិស្សលម្អិត'
             },
             en: {
@@ -932,14 +901,13 @@
                 btn_login: 'Login Now',
                 btn_register: 'Register & Enter System',
                 demo_or: 'Or Try Demo Account Instantly',
-                cloud_setup_btn: 'Google Sheet/Drive Setup',
                 nav_brand: 'Student Portfolio System',
                 academic_year_label: 'Year:',
                 btn_logout: 'Logout',
                 menu_header: 'NAVIGATION MENU',
                 menu_portfolio: 'Home / Student Portfolio',
                 menu_stats: 'Portfolio Statistics',
-                menu_backend: 'Google Sheet & Drive Sync',
+                menu_backend: 'Cloud Database Status',
                 page_title_portfolio: 'Student Profile & Detailed Portfolio'
             }
         };
@@ -947,7 +915,6 @@
         window.onload = function () {
             lucide.createIcons();
             initDatabase();
-            updateCloudStatusIndicators();
 
             const savedSession = localStorage.getItem(STORAGE_KEY_SESSION);
             if (savedSession) {
@@ -957,8 +924,7 @@
                 if (found) {
                     currentUser = found;
                     showDashboard();
-                    // ទាញទិន្នន័យចុងក្រោយពី Google Sheet ស្វ័យប្រវត្តិពេលបើកទំព័រ
-                    if (getGasUrl()) syncWithGoogleCloud(false);
+                    syncWithGoogleCloud(false);
                     return;
                 }
             }
@@ -981,15 +947,15 @@
             try {
                 localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(users));
             } catch (err) {
-                showToast('ទំហំផ្ទុកក្នុង Browser ជិតពេញ! សូមប្រើរូបថតតូចជាងនេះ។', 'warning');
+                showToast('ទំហំផ្ទុកក្នុង Browser ជិតពេញ! ទិន្នន័យត្រូវបានរក្សាទុកក្នុង Cloud ជាចម្បង។', 'warning');
             }
         }
 
+        // ប្រើប្រាស់ Link Apps Script តែមួយជានិច្ច
         function getGasUrl() {
-            return localStorage.getItem(STORAGE_KEY_GAS_URL) || '';
+            return DEFAULT_GAS_URL;
         }
 
-        // --- FORMAT DATE CLEANLY (កាត់ ISO String ឱ្យខ្លីជា YYYY-MM-DD) ---
         function formatCleanDate(dateStr) {
             if (!dateStr) return '-';
             const str = String(dateStr);
@@ -1006,7 +972,6 @@
             return str;
         }
 
-        // --- IMAGE COMPRESSION UTILITY ---
         function compressImageFile(file, maxSize = 360, quality = 0.82) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1043,7 +1008,6 @@
             });
         }
 
-        // --- PROFILE PHOTO UPLOAD ---
         async function handleProfilePhotoUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1060,30 +1024,26 @@
                 populateDashboardData();
 
                 const gasUrl = getGasUrl();
-                if (gasUrl) {
-                    showToast('កំពុងផ្ទុករូបថតសិស្ស...', 'info');
-                    const res = await fetch(gasUrl, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: 'uploadProfilePhoto',
-                            studentId: currentUser.studentId,
-                            studentName: currentUser.nameKh,
-                            school: currentUser.school,
-                            photoBase64: compressedBase64
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success' && data.photoUrl) {
-                        currentUser.photo = data.photoUrl;
-                        pendingPhotoBase64 = '';
-                        upsertLocalUser(currentUser);
-                        populateDashboardData();
-                        showToast('បានរក្សារូបថតសិស្សជោគជ័យ!', 'success');
-                    } else {
-                        showToast('បានរក្សារូបថតក្នុងម៉ាស៊ីន (Cloud: ' + (data.message || 'Error') + ')', 'warning');
-                    }
+                showToast('កំពុងផ្ទុករូបថតសិស្សទៅកាន់ Google Drive...', 'info');
+                const res = await fetch(gasUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'uploadProfilePhoto',
+                        studentId: currentUser.studentId,
+                        studentName: currentUser.nameKh,
+                        school: currentUser.school,
+                        photoBase64: compressedBase64
+                    })
+                });
+                const data = await res.json();
+                if (data.status === 'success' && data.photoUrl) {
+                    currentUser.photo = data.photoUrl;
+                    pendingPhotoBase64 = '';
+                    upsertLocalUser(currentUser);
+                    populateDashboardData();
+                    showToast('បានរក្សារូបថតសិស្សជោគជ័យ!', 'success');
                 } else {
-                    showToast('បានរក្សាទុករូបថតសិស្សដោយជោគជ័យ!', 'success');
+                    showToast('មានបញ្ហាក្នុងការបញ្ជូនរូបថត៖ ' + (data.message || 'Error'), 'warning');
                 }
             } catch (err) {
                 console.error(err);
@@ -1093,7 +1053,6 @@
             }
         }
 
-        // --- LANGUAGE SWITCHER ---
         function setLanguage(lang) {
             currentLang = lang;
             document.getElementById('navLangText').textContent = lang === 'km' ? 'ខ្មែរ' : 'English';
@@ -1121,7 +1080,6 @@
             setLanguage(currentLang === 'km' ? 'en' : 'km');
         }
 
-        // --- AUTHENTICATION ---
         function switchAuthMode(mode) {
             authMode = mode;
             const tabLogin = document.getElementById('tabLoginMode');
@@ -1166,6 +1124,7 @@
             document.getElementById('authForm').dispatchEvent(new Event('submit'));
         }
 
+        // ផ្ទៀងផ្ទាត់ និងចុះឈ្មោះសិស្សទាំងអស់តាមរយៈ Google Apps Script តែមួយ
         async function handleAuthSubmit(e) {
             e.preventDefault();
             const nameInput = document.getElementById('authStudentName').value.trim();
@@ -1182,96 +1141,50 @@
             const btn = document.getElementById('authSubmitBtn');
             btn.disabled = true;
             btn.classList.add('opacity-75');
+            showToast('កំពុងភ្ជាប់ទៅកាន់ប្រព័ន្ធទិន្នន័យសាលា...', 'info');
 
             const gasUrl = getGasUrl();
 
-            if (gasUrl) {
-                try {
-                    const res = await fetch(gasUrl, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: 'auth',
-                            mode: authMode,
-                            student: { nameKh: nameInput, school: schoolInput, passcode: passInput, grade: gradeInput, phone: phoneInput }
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success') {
-                        const localMatch = getUsers().find(u => u.nameKh === nameInput && u.school === schoolInput);
-                        currentUser = {
-                            ...DEMO_USER,
-                            ...data.student,
-                            photo: data.student.photo || (localMatch ? localMatch.photo : `https://placehold.co/180x180/1B4D3E/FFFFFF?text=${encodeURIComponent(nameInput.charAt(0))}`),
-                            items: data.items || []
-                        };
-                        upsertLocalUser(currentUser);
-                        loginSuccess();
-                        return;
-                    } else {
-                        showToast(data.message || 'ការផ្ទៀងផ្ទាត់បរាជ័យ!', 'error');
-                        btn.disabled = false;
-                        btn.classList.remove('opacity-75');
-                        return;
+            try {
+                const res = await fetch(gasUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'auth',
+                        mode: authMode,
+                        student: {
+                            nameKh: nameInput,
+                            school: schoolInput,
+                            passcode: passInput,
+                            grade: gradeInput,
+                            phone: phoneInput
+                        }
+                    })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    currentUser = {
+                        ...DEMO_USER,
+                        ...data.student,
+                        photo: data.student.photo || `https://placehold.co/180x180/1B4D3E/FFFFFF?text=${encodeURIComponent(nameInput.charAt(0))}`,
+                        items: data.items || []
+                    };
+                    upsertLocalUser(currentUser);
+                    loginSuccess();
+                    return;
+                } else {
+                    showToast(data.message || 'ការផ្ទៀងផ្ទាត់បរាជ័យ!', 'error');
+                    if (data.message && data.message.includes('មានក្នុងប្រព័ន្ធរួចហើយ')) {
+                        switchAuthMode('login');
                     }
-                } catch (err) {
-                    showToast('មិនអាចភ្ជាប់ទៅបានទេ កំពុងប្រើទិន្នន័យក្នុងម៉ាស៊ីន...', 'warning');
-                }
-            }
-
-            const users = getUsers();
-            const existingIndex = users.findIndex(
-                u => u.nameKh.toLowerCase() === nameInput.toLowerCase() && u.school.toLowerCase() === schoolInput.toLowerCase()
-            );
-
-            if (authMode === 'login') {
-                if (existingIndex === -1) {
-                    showToast('រកមិនឃើញឈ្មោះសិស្ស និងសាលានេះទេ! សូមចុច "ចុះឈ្មោះថ្មី" ជាមុនសិន។', 'error');
                     btn.disabled = false;
                     btn.classList.remove('opacity-75');
                     return;
                 }
-                if (users[existingIndex].passcode !== passInput) {
-                    showToast('លេខកូដសម្ងាត់មិនត្រឹមត្រូវទេ! សូមពិនិត្យម្តងទៀត។', 'error');
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-75');
-                    return;
-                }
-                currentUser = users[existingIndex];
-                loginSuccess();
-            } else {
-                if (existingIndex !== -1) {
-                    showToast('ឈ្មោះសិស្ស និងសាលានេះមានក្នុងប្រព័ន្ធរួចហើយ! សូមចូលប្រើប្រព័ន្ធ។', 'warning');
-                    switchAuthMode('login');
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-75');
-                    return;
-                }
-
-                const newStudent = {
-                    studentId: 'STU-' + Math.floor(100000 + Math.random() * 900000),
-                    nameKh: nameInput,
-                    nameEn: '',
-                    school: schoolInput,
-                    passcode: passInput,
-                    grade: gradeInput || 'ទី១២',
-                    gender: 'ប្រុស',
-                    dob: '',
-                    nationality: 'ខ្មែរ',
-                    province: '',
-                    district: '',
-                    phone: phoneInput || '',
-                    email: '',
-                    skill: '',
-                    photo: `https://placehold.co/180x180/1B4D3E/FFFFFF?text=${encodeURIComponent(nameInput.charAt(0))}`,
-                    academicYear: '2025-2026',
-                    items: []
-                };
-
-                users.push(newStudent);
-                saveUsers(users);
-                currentUser = newStudent;
-                showToast('ចុះឈ្មោះសិស្សថ្មីជោគជ័យ!', 'success');
-                loginSuccess();
+            } catch (err) {
+                console.error(err);
+                showToast('មានបញ្ហាការតភ្ជាប់អ៊ីនធឺណិត! សូមពិនិត្យបណ្តាញ ហើយព្យាយាមម្តងទៀត។', 'error');
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
             }
         }
 
@@ -1311,12 +1224,10 @@
             document.getElementById('dashboardView').classList.remove('hidden');
             populateDashboardData();
             switchMainSection('portfolio');
-            // បង្ហាញ Tab "ស្នាដៃទាំងអស់" ឬ "ព័ត៌មានលម្អិត"
             switchPortfolioTab('all');
             lucide.createIcons();
         }
 
-        // --- POPULATE DASHBOARD & PROFILE ---
         function populateDashboardData() {
             if (!currentUser) return;
 
@@ -1334,6 +1245,12 @@
             document.getElementById('bannerStudentId').textContent = currentUser.studentId || 'PAD-001';
             document.getElementById('bannerSchoolName').textContent = currentUser.school;
             document.getElementById('bannerPhone').textContent = currentUser.phone || 'មិនទាន់បញ្ចូល';
+
+            const driveBtn = document.getElementById('sidebarDriveFolderBtn');
+            if (currentUser.driveFolderUrl && driveBtn) {
+                driveBtn.href = currentUser.driveFolderUrl;
+                driveBtn.classList.remove('hidden');
+            }
 
             document.getElementById('infoNameKh').value = currentUser.nameKh || '';
             document.getElementById('infoNameEn').value = currentUser.nameEn || '';
@@ -1389,32 +1306,31 @@
             populateDashboardData();
 
             const gasUrl = getGasUrl();
-            if (gasUrl) {
-                try {
-                    const payload = {
-                        action: 'updateProfile',
-                        student: {
-                            ...currentUser,
-                            photoBase64: (currentUser.photo && currentUser.photo.startsWith('data:image')) ? currentUser.photo : ''
-                        }
-                    };
-                    const res = await fetch(gasUrl, {
-                        method: 'POST',
-                        body: JSON.stringify(payload)
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success' && data.photoUrl) {
-                        currentUser.photo = data.photoUrl;
-                        upsertLocalUser(currentUser);
-                        populateDashboardData();
+            showToast('កំពុងរក្សាទុកព័ត៌មានទៅកាន់ Google Sheet...', 'info');
+            try {
+                const payload = {
+                    action: 'updateProfile',
+                    student: {
+                        ...currentUser,
+                        photoBase64: (currentUser.photo && currentUser.photo.startsWith('data:image')) ? currentUser.photo : ''
                     }
+                };
+                const res = await fetch(gasUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    if (data.photoUrl) currentUser.photo = data.photoUrl;
+                    if (data.driveFolderUrl) currentUser.driveFolderUrl = data.driveFolderUrl;
+                    upsertLocalUser(currentUser);
+                    populateDashboardData();
                     showToast('បានរក្សាទុកព័ត៌មាន និងរូបថតជោគជ័យ!', 'success');
-                    return;
-                } catch (err) {
-                    console.error(err);
                 }
+            } catch (err) {
+                console.error(err);
+                showToast('មានបញ្ហាការតភ្ជាប់! សូមចុច Google Sync ម្តងទៀតពេលមានអ៊ីនធឺណិត។', 'warning');
             }
-            showToast('បានរក្សាទុកព័ត៌មានផ្ទាល់ខ្លួន និងរូបថតរបស់សិស្សជោគជ័យ!', 'success');
         }
 
         function changeAcademicYear(year) {
@@ -1424,7 +1340,6 @@
             showToast(`បានប្តូរទៅឆ្នាំសិក្សា ${year}`, 'info');
         }
 
-        // --- NAVIGATION ---
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const backdrop = document.getElementById('sidebarBackdrop');
@@ -1491,7 +1406,6 @@
             lucide.createIcons();
         }
 
-        // --- PORTFOLIO TABLE & CRUD ---
         function renderPortfolioTable() {
             const tbody = document.getElementById('portfolioTableBody');
             const emptyState = document.getElementById('tableEmptyState');
@@ -1678,13 +1592,14 @@
             switchPortfolioTab(currentPortfolioTab === 'all' ? 'all' : category);
 
             const gasUrl = getGasUrl();
-            if (gasUrl && savedItem) {
-                showToast('កំពុងផ្ទុកឯកសារ', 'info');
+            if (savedItem) {
+                showToast('កំពុងផ្ទុកឯកសារទៅកាន់...', 'info');
                 try {
                     const res = await fetch(gasUrl, {
                         method: 'POST',
                         body: JSON.stringify({
                             action: 'saveItem',
+                            studentId: currentUser.studentId,
                             studentName: currentUser.nameKh,
                             school: currentUser.school,
                             item: {
@@ -1696,18 +1611,17 @@
                     const data = await res.json();
                     if (data.status === 'success' && data.fileUrl) {
                         savedItem.fileUrl = data.fileUrl;
+                        savedItem.fileData = ''; // សម្អាត Base64 ក្នុង Local ដើម្បីសន្សំទំហំ
                         upsertLocalUser(currentUser);
                         renderPortfolioTable();
                     }
-                    showToast('បានរក្សាទុកក្នុង Google Sheet រួចរាល់!', 'success');
+                    showToast('បានរក្សាទុកក្នុងរួចរាល់!', 'success');
                     return;
                 } catch (err) {
                     showToast('រក្សាទុកក្នុងម៉ាស៊ីនជោគជ័យ (Cloud Sync មានបញ្ហាបណ្តោះអាសន្ន)', 'warning');
                     return;
                 }
             }
-
-            showToast(editId ? 'បានកែប្រែព័ត៌មានស្នាដៃជោគជ័យ!' : 'បានបញ្ចូលស្នាដៃថ្មីជោគជ័យ!', 'success');
         }
 
         function confirmDeleteItem(itemId) {
@@ -1721,14 +1635,12 @@
                 closeConfirmModal();
 
                 const gasUrl = getGasUrl();
-                if (gasUrl) {
-                    try {
-                        await fetch(gasUrl, {
-                            method: 'POST',
-                            body: JSON.stringify({ action: 'deleteItem', itemId })
-                        });
-                    } catch (e) {}
-                }
+                try {
+                    await fetch(gasUrl, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'deleteItem', itemId })
+                    });
+                } catch (e) {}
                 showToast('បានលុបស្នាដៃចេញពីតារាង និង Google Sheet រួចរាល់!', 'info');
             };
         }
@@ -1737,7 +1649,6 @@
             document.getElementById('confirmModal').classList.add('hidden');
         }
 
-        // --- DOCUMENT PREVIEW ---
         function previewDocument(itemId) {
             const item = (currentUser.items || []).find(i => i.id === itemId);
             if (!item) return;
@@ -1796,7 +1707,6 @@
             document.getElementById('previewBody').innerHTML = '';
         }
 
-        // --- STATISTICS ANALYTICS ---
         function renderStatisticsDashboard() {
             const items = currentUser.items || [];
             const projectsCount = items.filter(i => (i.category || '').trim().toLowerCase() === 'projects').length;
@@ -1878,67 +1788,8 @@
             showToast('បានទាញយករបាយការណ៍តារាងស្ថិតិ CSV ជោគជ័យ!', 'success');
         }
 
-        // --- GOOGLE SHEETS & DRIVE SYNC ---
-        function openCloudConfigModal() {
-            document.getElementById('modalGasUrlInput').value = getGasUrl();
-            document.getElementById('cloudConfigModal').classList.remove('hidden');
-        }
-
-        function closeCloudConfigModal() {
-            document.getElementById('cloudConfigModal').classList.add('hidden');
-        }
-
-        function saveGasUrlFromModal() {
-            const url = document.getElementById('modalGasUrlInput').value.trim();
-            localStorage.setItem(STORAGE_KEY_GAS_URL, url);
-            updateCloudStatusIndicators();
-            closeCloudConfigModal();
-            showToast(url ? 'បានរក្សាទុកតំណភ្ជាប់ Google Sheet & Drive!' : 'បានប្តូរទៅ Local Storage Mode', 'success');
-        }
-
-        function saveGasUrl() {
-            const url = document.getElementById('gasWebAppUrlInput').value.trim();
-            localStorage.setItem(STORAGE_KEY_GAS_URL, url);
-            updateCloudStatusIndicators();
-            showToast(url ? 'បានរក្សាទុកតំណភ្ជាប់ Web App URL ជោគជ័យ!' : 'បានសម្អាត Web App URL', 'success');
-        }
-
-        function updateCloudStatusIndicators() {
-            const url = getGasUrl();
-            const dot = document.getElementById('cloudStatusDot');
-            const badge = document.getElementById('sidebarSyncBadge');
-            const pill = document.getElementById('backendStatusPill');
-
-            if (url) {
-                if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
-                if (badge) {
-                    badge.textContent = 'Cloud Sync';
-                    badge.className = 'px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-semibold';
-                }
-                if (pill) {
-                    pill.textContent = 'បានតភ្ជាប់ Google Sheet & Drive រួចរាល់';
-                    pill.className = 'px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800';
-                }
-            } else {
-                if (dot) dot.className = 'w-2 h-2 rounded-full bg-amber-400';
-                if (badge) {
-                    badge.textContent = 'Local';
-                    badge.className = 'px-2 py-0.5 rounded-full text-[10px] bg-amber-100 text-amber-800';
-                }
-                if (pill) {
-                    pill.textContent = 'មិនទាន់ភ្ជាប់ Web App URL (កំពុងប្រើ Local Mode)';
-                    pill.className = 'px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800';
-                }
-            }
-        }
-
         async function testGasConnection() {
-            const url = document.getElementById('gasWebAppUrlInput').value.trim();
-            if (!url) {
-                showToast('សូមបញ្ចូល Web App URL ជាមុនសិន!', 'warning');
-                return;
-            }
-            saveGasUrl();
+            const url = getGasUrl();
             showToast('កំពុងសាកល្បងតភ្ជាប់...', 'info');
             try {
                 const res = await fetch(url, {
@@ -1952,20 +1803,13 @@
                     showToast('ការតភ្ជាប់មានបញ្ហា៖ ' + (data.message || ''), 'error');
                 }
             } catch (err) {
-                showToast('មិនអាចតភ្ជាប់បានទេ! សូមពិនិត្យមើលការ Deploy Web App (Who has access: Anyone)។', 'error');
+                showToast('មិនអាចតភ្ជាប់បានទេ! សូមពិនិត្យបណ្តាញអ៊ីនធឺណិត។', 'error');
             }
         }
 
-        // កែសម្រួលមុខងារ Sync ឱ្យទាញទិន្នន័យស្នាដៃទាំងអស់មកបង្ហាញក្នុងតារាងវិញ
         async function syncWithGoogleCloud(manual = false) {
             const url = getGasUrl();
-            if (!url) {
-                if (manual) {
-                    showToast('សូមបញ្ចូល Google Apps Script Web App URL ជាមុនសិន!', 'warning');
-                    switchMainSection('backend');
-                }
-                return;
-            }
+            if (!currentUser) return;
             const icon = document.getElementById('syncIcon');
             if (icon) icon.classList.add('animate-spin');
             try {
@@ -1983,10 +1827,11 @@
                 if (data.status === 'success' && Array.isArray(data.items)) {
                     currentUser.items = data.items;
                     if (data.photoUrl) currentUser.photo = data.photoUrl;
+                    if (data.driveFolderUrl) currentUser.driveFolderUrl = data.driveFolderUrl;
                     upsertLocalUser(currentUser);
                     populateDashboardData();
                     renderPortfolioTable();
-                    if (manual) showToast(`ទាញយកស្នាដៃសរុបចំនួន ${data.items.length} ពីទិន្នន័យជោគជ័យ!`, 'success');
+                    if (manual) showToast(`ទាញយកស្នាដៃសរុបចំនួន ${data.items.length} ពី Google Sheet ជោគជ័យ!`, 'success');
                 } else if (manual) {
                     showToast('បានធ្វើសមកាលកម្មទិន្នន័យជោគជ័យ!', 'success');
                 }
